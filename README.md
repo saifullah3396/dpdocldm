@@ -136,3 +136,21 @@ This script trains each classifier on the final generated samples
 
 ### Additional private training experiments
 For all other private training experiments related to DPDM/DP-Promise under all conditions on RVL-CDIP/Tobacco3482 datasets see please see the scripts in `./scripts/experiments/rvlcdip` and `./scripts/experiments/tobacco3482`
+
+
+# Citation
+If you find this useful in your research, please consider citing:
+```
+@INPROCEEDINGS{,
+  author={Saifullah Saifullah, Shoaib Ahmed and Agne, Stefan and Dengel, Andreas and Ahmed, Sheraz},
+  # booktitle={2025 The 19th International Conference on Document Analysis and Recognition (ICDAR)}, 
+  title={DP-DocLDM: Differentially Private Document Image Generation using Latent Diffusion Models}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={},
+  doi={}}
+```
+
+# License
+This repository is released under the Apache 2.0 license as found in the LICENSE file.
