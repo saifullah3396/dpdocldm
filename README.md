@@ -133,3 +133,6 @@ This script trains each classifier on the final generated samples
 ```
 ./scripts/experiments/tobacco3482_final/train_classifier.sh
 ```
+
+### Additional private training experiments
+For all other private training experiments related to DPDM/DP-Promise under all conditions on RVL-CDIP/Tobacco3482 datasets see please see the scripts in `./scripts/experiments/rvlcdip` and `./scripts/experiments/tobacco3482`
