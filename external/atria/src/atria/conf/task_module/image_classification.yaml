@@ -1,0 +1,8 @@
+_target_: atria.models.task_modules.classification.image.ImageClassificationModule
+_partial_: true
+defaults:
+- _self_
+- /torch_model_builder@torch_model_builder: timm
+checkpoint_configs: null
+dataset_metadata: null
+tb_logger: null

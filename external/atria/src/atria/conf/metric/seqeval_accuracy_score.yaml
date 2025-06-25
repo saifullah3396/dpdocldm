@@ -1,0 +1,6 @@
+_target_: atria.core.metrics.token_classification.seqeval.seqeval_classification_metric
+_partial_: false
+metric_func: seqeval.metrics.accuracy_score
+output_transform:
+  path: atria.core.metrics.token_classification.output_transforms._token_classification_output_transform
+  _target_: hydra_zen.funcs.get_obj

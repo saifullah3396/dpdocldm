@@ -1,0 +1,10 @@
+defaults:
+- document_classification/iitcdip@_here_
+- _self_
+
+dataset_dir: ${oc.env:DATASET_ROOT_DIR}/IIT-CDIP
+dataset_config_name: images_labelled_with_ocr
+dataset_cacher:
+  cache_dir: ${data_module.dataset_dir}/.atria/
+  num_processes: 16
+use_stratified_sampling: True

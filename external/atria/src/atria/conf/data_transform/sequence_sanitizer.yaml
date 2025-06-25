@@ -1,0 +1,5 @@
+_target_: atria.data.data_transforms.huggingface_processors.SequenceSanitizer
+input_seq_key: word_labels
+output_seq_key: labels
+apply_value_to_first_subword: true
+padding_value: -100

@@ -1,0 +1,22 @@
+defaults:
+# take the defaults from the atria/data_module/hugging_face
+- /data_module/huggingface@_here_
+- /data_transform@dataset_cacher.preprocess_data_transforms.train: image_preprocess
+- /data_transform@dataset_cacher.preprocess_data_transforms.evaluation: image_preprocess
+- _self_
+
+dataset_name: docsets.document_vqa.docvqa.DocVQA
+dataset_dir: /home/${oc.env:USER}/.cache/docsets/datasets/docvqa
+dataset_config_name: default
+caching_enabled: true
+train_dataloader_builder:
+  batch_size: 2
+evaluation_dataloader_builder:
+  batch_size: 2
+# dataset_cacher:
+#   cache_file_name: 224x224
+#   preprocess_data_transforms:
+#     train:
+#       rescale_size: [224, 224]
+#     evaluation:
+#       rescale_size: [224, 224]

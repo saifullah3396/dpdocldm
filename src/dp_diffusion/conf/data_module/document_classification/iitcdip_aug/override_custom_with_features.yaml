@@ -1,0 +1,81 @@
+defaults:
+- document_classification/iitcdip@_here_
+- /data_transform@dataset_cacher.preprocess_data_transforms.train: image_preprocess
+- /data_transform@dataset_cacher.preprocess_data_transforms.evaluation: image_preprocess
+- /data_transform@runtime_data_transforms.train.basic_image_aug: basic_image_aug
+- /data_transform@runtime_data_transforms.evaluation.basic_image_aug: basic_image_aug
+- _self_
+
+dataset_dir: ${oc.env:DATASET_ROOT_DIR}/IIT-CDIP
+train_dataloader_builder:
+  num_workers: 4
+  batch_size: ${train_batch_size}
+  persistent_workers: true
+  collate_fn:
+    batch_filter_key_map:
+      image: image # our model expects image
+      latent_image: latent_image
+      label: label # our model expects label
+      __key__: __key__
+evaluation_dataloader_builder:
+  num_workers: 4
+  batch_size: ${eval_batch_size}
+  collate_fn:
+    batch_filter_key_map:
+      image: image # our model expects image
+      latent_image: latent_image
+      label: label # our model expects label
+      __key__: __key__
+dataset_cacher:
+  cache_dir: ${data_module.dataset_dir}/.atria/
+  num_processes: 8
+  attach_features_with_key: ${features_key}
+  cache_file_name: ${preprocess_image_size}x${preprocess_image_size}
+  preprocess_data_transforms:
+    train:
+      rescale_size:
+        - ${preprocess_image_size}
+        - ${preprocess_image_size}
+    evaluation:
+      rescale_size:
+        - ${preprocess_image_size}
+        - ${preprocess_image_size}
+
+runtime_data_transforms:
+  train:
+    basic_image_aug:
+      key: image
+      gray_to_rgb: ${gray_to_rgb}
+      normalize: true
+      random_resized_crop:
+        size:
+        - ${image_size}
+        - ${image_size}
+        scale: [0.08, 0.4]
+        ratio: [0.75, 1.3333333333333333]
+        interpolation: 2
+      random_hflip: True
+      random_vflip: True
+      mean:
+      - 0.5
+      std:
+      - 0.5
+  evaluation:
+    basic_image_aug:
+      key: image
+      gray_to_rgb: ${gray_to_rgb}
+      normalize: true
+      random_resized_crop:
+        size:
+        - ${image_size}
+        - ${image_size}
+        scale: [0.08, 0.4]
+        ratio: [0.75, 1.3333333333333333]
+        interpolation: 2
+      random_hflip: True
+      random_vflip: True
+      mean:
+      - 0.5
+      std:
+      - 0.5
+use_stratified_sampling: True

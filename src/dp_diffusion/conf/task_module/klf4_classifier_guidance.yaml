@@ -1,0 +1,8 @@
+defaults:
+- klf4_uncond@_here_
+- _self_
+
+enable_class_conditioning: True
+use_cfg: True
+cond_drop_prob: 0.1
+guidance_scale: 1.0

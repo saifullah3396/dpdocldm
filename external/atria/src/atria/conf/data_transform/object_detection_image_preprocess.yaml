@@ -1,0 +1,2 @@
+_target_: atria.data.data_transforms.detectron2.ObjectDetectionImagePreprocess
+key: null

@@ -1,0 +1,13 @@
+_target_: atria.data.data_transforms.advanced.Moco
+key: null
+image_size: 224
+gray_to_rgb: false
+to_pil: false
+mean:
+- 0.485
+- 0.456
+- 0.406
+std:
+- 0.229
+- 0.224
+- 0.225

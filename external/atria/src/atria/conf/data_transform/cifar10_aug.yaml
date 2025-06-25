@@ -1,0 +1,13 @@
+_target_: atria.data.data_transforms.advanced.Cifar10Aug
+key: null
+mean:
+- 0.4914
+- 0.4822
+- 0.4465
+std:
+- 0.247
+- 0.243
+- 0.261
+pad_size: 4
+crop_size: 32
+train: false

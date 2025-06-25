@@ -1,0 +1,13 @@
+defaults:
+# take the defaults from the atria/data_module/hugging_face
+- /data_module/huggingface@_here_
+- _self_
+
+dataset_name: docsets.document_ler.docbank.DocBankLER
+dataset_dir: /home/${oc.env:USER}/.cache/docsets/datasets/DocBank
+dataset_config_name: default
+caching_enabled: true
+train_dataloader_builder:
+  batch_size: 2
+evaluation_dataloader_builder:
+  batch_size: 2

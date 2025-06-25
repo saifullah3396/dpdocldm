@@ -1,0 +1,5 @@
+# MANIFEST.in
+
+# Include everything in the cfg/ directory
+recursive-include src/docsets *.yaml
+recursive-include src/docsets *.py

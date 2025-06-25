@@ -1,0 +1,5 @@
+_target_: atria.data.data_transforms.blur.PilGaussianBlur
+sigma:
+- 0.1
+- 2.0
+key: null

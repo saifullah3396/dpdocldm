@@ -1,0 +1,20 @@
+# @package __global__
+_target_: hydra_zen.funcs.zen_processing
+_zen_target: atria.core.task_runners.atria_data_processor.AtriaDataProcessor
+_zen_exclude:
+- hydra
+defaults:
+- _self_
+- /data_module@data_module: huggingface
+data_module: ???
+seed: 42
+deterministic: false
+backend: nccl
+n_devices: 1
+stage: null
+hydra:
+  run:
+    dir: /tmp/atria_data_processor
+  output_subdir: hydra
+  job:
+    chdir: false

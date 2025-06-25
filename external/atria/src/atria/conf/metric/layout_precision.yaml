@@ -1,0 +1,8 @@
+_target_: atria.core.metrics.layout.precision.LayoutPrecision
+_partial_: true
+output_transform:
+  path: atria.core.metrics.layout.output_transforms._layout_token_classification_metrics_output_transform
+  _target_: hydra_zen.funcs.get_obj
+average: false
+is_multilabel: false
+device: cpu

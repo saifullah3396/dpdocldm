@@ -1,0 +1,12 @@
+_target_: atria.core.data.data_modules.dataset_cacher.dataset_cacher.DatasetCacher
+cache_type: webdataset
+cache_dir: null
+cache_file_name: default
+preprocessing_batch_size: 1
+num_processes: 4
+max_shard_size: 100000
+preprocess_data_transforms:
+  _target_: atria.core.data.data_transforms.DataTransformsDict
+  train: null
+  evaluation: null
+attach_features_with_key: null

@@ -1,0 +1,24 @@
+# @package __global__
+_target_: hydra_zen.funcs.zen_processing
+_zen_target: atria.core.task_runners.atria_model_evaluator.AtriaModelEvaluator
+_zen_exclude:
+- hydra
+defaults:
+- _self_
+- /data_module@data_module: huggingface
+- /task_module@task_module: image_classification
+- /engine@test_engine: default_test_engine
+data_module: ???
+task_module: ???
+test_engine: ???
+output_dir: ???
+seed: 42
+deterministic: false
+backend: nccl
+n_devices: 1
+hydra:
+  run:
+    dir: ${output_dir}/atria_model_evaluator/${resolve_dir_name:${data_module.dataset_name}}/${resolve_dir_name:${task_module._target_}}/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  output_subdir: hydra
+  job:
+    chdir: false

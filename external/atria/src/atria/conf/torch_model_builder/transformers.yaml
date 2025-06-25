@@ -1,0 +1,16 @@
+_target_: atria.core.models.torch_model_builders.transformers.TransformersModelBuilder
+_partial_: true
+model_name: ???
+model_task: sequence_classification
+model_cache_dir: null
+pretrained: true
+convert_bn_to_gn: false
+is_frozen: false
+required_in_training_step: true
+pretrained_checkpoint: null
+strict: true
+frozen_keys_patterns: null
+unfrozen_keys_patterns: null
+n_frozen_encoder_layers: 0
+encoder_layer_name: null
+frozen_layers: null

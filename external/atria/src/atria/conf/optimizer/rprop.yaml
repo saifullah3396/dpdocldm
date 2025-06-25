@@ -1,0 +1,12 @@
+_target_: torch.optim.rprop.Rprop
+_partial_: true
+lr: 0.01
+etas:
+- 0.5
+- 1.2
+step_sizes:
+- 1.0e-06
+- 50
+foreach: null
+maximize: false
+differentiable: false

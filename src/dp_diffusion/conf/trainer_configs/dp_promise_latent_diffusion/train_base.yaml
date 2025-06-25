@@ -1,0 +1,212 @@
+# @package __global__
+_target_: hydra_zen.funcs.zen_processing
+_zen_target: dp_diffusion.task_runners._dp_promise_trainer.DPPromiseTrainer
+_zen_exclude:
+- hydra
+- test_run
+- experiment_name
+- preprocess_image_size
+- image_size
+- dir_name_filter
+- objective
+- noise_schedule
+- snr_gamma
+- train_batch_size
+- eval_batch_size
+- gray_to_rgb
+- backend
+- n_devices
+- noise_multiplicity
+- model_checkpoint
+- max_physical_batch_size
+- vae_checkpoint
+defaults:
+# defines the task module which is unconditional diffusion
+- override /task_module@task_module: ${oc.env:TASK_MODULE}
+# defines the training engine config
+- override /engine@non_private_training_engine: default_training_engine
+# defines the training engine config
+- override /engine@private_training_engine: dp_promise_training_engine
+# defines the validation engine config
+- override /engine@validation_engine: generative_modeling_validation_engine
+# defines the visualization engine config
+- override /engine@visualization_engine: default_visualization_engine
+# defines the test engine config
+- override /engine@test_engine: diffusion_test_engine
+# defines the optimizer
+- override /optimizer@non_private_training_engine.optimizers: adam
+# defines the optimizer
+- override /optimizer@private_training_engine.optimizers: adam
+# defines the learning rate scheduler
+- override /lr_scheduler@non_private_training_engine.lr_schedulers: null
+# defines the learning rate scheduler
+- override /lr_scheduler@private_training_engine.lr_schedulers: null
+- _self_
+
+data_module:
+  max_test_samples: 50000
+  # dataset_key_filter:
+  #   - label
+
+task_module:
+  enable_xformers_memory_efficient_attention: False
+  gradient_checkpointing: False # DP does not support gradient checkpointing
+  objective: ${objective}
+  diffusion_steps: 1000
+  inference_diffusion_steps: 200
+  # scheduler: diffusers.schedulers.scheduling_ddim.DDIMScheduler
+  scheduler: diffusers.schedulers.scheduling_ddpm.DDPMScheduler
+  noise_multiplicity: ${noise_multiplicity}
+  torch_model_builder:
+    reverse_diffusion_model:
+        frozen_keys_patterns:
+          - time_embed
+  checkpoint_configs:
+    - checkpoint_path: ${vae_checkpoint}
+      checkpoint_state_dict_path: ema_model.encoder_decoder_model
+      model_state_dict_path: "non_trainable_models.vae"
+      load_checkpoint_strict: False
+    - checkpoint_path: ${model_checkpoint}
+      # checkpoint_state_dict_path: "task_module"
+      checkpoint_state_dict_path: ema_model # load ema model dict to trainable models as they are mapped
+      model_state_dict_path: "trainable_models"
+      # model_state_dict_path: trainable_models.reverse_diffusion_model
+      load_checkpoint_strict: False
+  generate_dataset_on_test: true
+
+
+
+non_private_training_engine:
+  max_epochs: 1
+  # epoch_length: 10
+  engine_step:
+    non_blocking_tensor_conv: true
+    with_amp: false
+  gradient_config:
+    gradient_accumulation_steps: 1
+  logging:
+    refresh_rate: 100
+    profile_time: false
+  model_ema_config:
+    enabled: false
+    momentum: 0.0001
+    update_every: 1
+  model_checkpoint_config:
+    dir: non_private_checkpoints
+    n_saved: 1
+    n_best_saved: 1
+    monitored_metric: null
+    mode: min
+    name_prefix: ''
+    save_weights_only: false
+    load_weights_only: false
+    every_n_steps: null
+    every_n_epochs: 1
+    load_best_checkpoint_resume: false
+    resume_from_checkpoint: true
+    resume_checkpoint_file: null
+  test_run: ${test_run}
+  optimizers:
+    lr: 3.0e-4
+
+private_training_engine:
+  max_epochs: 50
+  # epoch_length: 10
+  engine_step:
+    non_blocking_tensor_conv: true
+    with_amp: false
+  gradient_config:
+    gradient_accumulation_steps: 1
+  logging:
+    logging_steps: 100
+    refresh_rate: 100
+    profile_time: false
+  model_ema_config:
+    enabled: false
+    momentum: 0.0001
+    update_every: 1
+  model_checkpoint_config:
+    dir: private_checkpoints
+    n_saved: 1
+    n_best_saved: 1
+    monitored_metric: val/loss
+    mode: min
+    name_prefix: ''
+    save_weights_only: false
+    load_weights_only: false
+    every_n_steps: null
+    every_n_epochs: 10
+    load_best_checkpoint_resume: false
+    resume_from_checkpoint: true
+    resume_checkpoint_file: null
+  test_run: ${test_run}
+  optimizers:
+    lr: 3.0e-4
+  target_delta: 0.000003125
+  noise_multiplier: 1.19
+  max_grad_norm: 0.01
+  use_bmm: true
+  max_physical_batch_size: ${max_physical_batch_size}
+  n_splits: null
+  noise_multiplicity: ${noise_multiplicity}
+  cutoff_ratio: 0.9
+
+test_engine:
+  test_run: ${test_run}
+  checkpoints_dir: private_checkpoints
+  test_guidance_scales:
+    - 1.0
+    - 3.0
+  logging:
+    refresh_rate: 1
+    profile_time: false
+
+validation_engine:
+  validate_on_start: false
+  validate_every_n_epochs: 9999
+  use_ema_for_val: true
+  test_run: ${test_run}
+
+visualization_engine:
+  visualize_on_start: true
+  visualize_every_n_epochs: 1
+  use_ema_for_visualize: false
+
+output_dir: ./output/
+seed: 42
+deterministic: false
+backend: nccl
+n_devices: 1
+do_train: true
+do_validation: false
+do_visualization: true
+do_test: true
+
+# additional override params that are should go inside _zen_exclude
+test_run: false
+experiment_name: ???
+preprocess_image_size: 1024
+image_size: 256
+objective: epsilon # one of epsilon, sample, v_prediction
+noise_schedule: linear
+snr_gamma: null
+gray_to_rgb: true
+train_batch_size: 64 # this is not used in this case, instead we use private_batch_size and non_private_batch_size
+eval_batch_size: 128
+vis_batch_size: 32
+feature_extraction_batch_size: 64
+non_private_batch_size: 256
+private_batch_size: 1096
+max_physical_batch_size: 256
+noise_multiplicity: 1
+model_checkpoint: ???
+vae_checkpoint: ""
+
+hydra:
+  run:
+    dir: "${output_dir}/atria_trainer/\
+          ${resolve_dir_name:${data_module.dataset_name}}/\
+          ${experiment_name}/${data_module.subset_label}/"
+  output_subdir: hydra
+  job:
+    chdir: false

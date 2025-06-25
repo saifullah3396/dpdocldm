@@ -1,0 +1,41 @@
+_target_: dp_diffusion.models.task_modules.layout_conditioned_diffusion.LayoutConditionedDiffusionModule
+_partial_: true
+checkpoint_configs: null
+dataset_metadata: null
+tb_logger: null
+input_key: image
+loss_type: l2
+enable_xformers_memory_efficient_attention: false
+gradient_checkpointing: false
+scheduler: diffusers.schedulers.scheduling_ddpm.DDPMScheduler
+objective: epsilon
+diffusion_steps: 1000
+inference_diffusion_steps: 200
+noise_schedule: linear
+snr_gamma: null
+clip_sample: false
+clip_sample_range: 1.0
+unnormalize_output: true
+noise_multiplicity: null
+weighted_timestep_sampling: false
+weighted_timestep_config:
+  distributions:
+  - low: 0
+    high: 200
+  - low: 200
+    high: 800
+  - low: 800
+    high: 1000
+  coefficients:
+  - 0.015
+  - 0.785
+  - 0.2
+reinit_keys_patterns: null
+schedule_sampler: uniform
+enable_class_conditioning: false
+use_fixed_class_labels: true
+use_cfg: false
+cond_drop_prob: 0.1
+guidance_scale: 1.0
+custom_generated_class_label: null
+layout_cond_input_key: layout_mask

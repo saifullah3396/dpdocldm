@@ -1,0 +1,155 @@
+# @package __global__
+_target_: hydra_zen.funcs.zen_processing
+_zen_target: atria.core.task_runners._atria_trainer.AtriaTrainer
+_zen_exclude:
+- hydra
+- test_run
+- experiment_name
+- image_size
+- gray_to_rgb
+- backend
+- n_devices
+- train_batch_size
+- eval_batch_size
+defaults:
+# defines the dataset
+- override /data_module@data_module: ${oc.env:TASK}/${oc.env:DATASET}/override_custom
+# defines the task module which is image_classification
+- override /task_module@task_module: image_classification
+# defines the model builder dict which maps to timm library
+- override /torch_model_builder@task_module.torch_model_builder: timm
+# defines the training engine config
+- override /engine@training_engine: default_training_engine
+# defines the validation engine config
+- override /engine@validation_engine: image_classification_validation_engine
+# defines the test engine config
+- override /engine@test_engine: image_classification_test_engine
+# defines the optimizer
+- override /optimizer@training_engine.optimizers: sgd
+# defines the learning rate scheduler
+- override /lr_scheduler@training_engine.lr_schedulers: cosine_annealing_lr
+- _self_
+
+
+data_module:
+  # train_validation_splitter:
+  #   seed: 42
+  #   split_ratio: 0.995
+  #   shuffle: true
+  use_train_set_for_test: false
+  runtime_data_transforms:
+    train:
+      basic_image_aug:
+        key: image
+        rgb_to_gray: true
+        gray_to_rgb: True
+        normalize: true
+        mean:
+        - 0.485
+        - 0.456
+        - 0.406
+        std:
+        - 0.229
+        - 0.224
+        - 0.225
+        resize:
+          size:
+            - 224
+            - 224
+    evaluation:
+      basic_image_aug:
+        key: image
+        rgb_to_gray: true
+        gray_to_rgb: True
+        normalize: true
+        mean:
+        - 0.485
+        - 0.456
+        - 0.406
+        std:
+        - 0.229
+        - 0.224
+        - 0.225
+        resize:
+          size:
+            - 224
+            - 224
+
+training_engine:
+  max_epochs: 100
+  engine_step:
+    non_blocking_tensor_conv: true
+    with_amp: true
+  gradient_config:
+    gradient_accumulation_steps: 1
+  logging:
+    refresh_rate: 100
+    profile_time: false
+  model_ema_config:
+    enabled: false
+    momentum: 0.0001
+    update_every: 1
+  model_checkpoint_config:
+    dir: checkpoints
+    n_saved: 1
+    n_best_saved: 1
+    monitored_metric: validation/accuracy
+    mode: max
+    name_prefix: ''
+    save_weights_only: false
+    load_weights_only: false
+    every_n_steps: null
+    every_n_epochs: 20
+    load_best_checkpoint_resume: false
+    resume_from_checkpoint: true
+    resume_checkpoint_file: null
+  test_run: ${test_run}
+  optimizers:
+    lr: 0.01
+    weight_decay: 0.0001
+    momentum: 0.9
+
+
+test_engine:
+  test_run: ${test_run}
+
+validation_engine:
+  validate_on_start: false
+  validate_every_n_epochs: 20
+  use_ema_for_val: false
+  test_run: ${test_run}
+
+task_module:
+  mixup_config:
+    mixup_alpha: 0.8
+    cutmix_alpha:  1.0
+    label_smoothing:  0.0
+
+output_dir: ./output
+seed: 42
+deterministic: false
+backend: nccl
+n_devices: 1
+do_train: true
+do_validation: true
+do_visualization: false
+do_test: true
+train_batch_size: 64
+eval_batch_size: 256
+
+# additional override params that are should go inside _zen_exclude
+test_run: false
+experiment_name: train_classifier
+image_size: 256
+
+hydra:
+  run:
+    dir: "${output_dir}/atria_trainer/\
+          ${resolve_dir_name:${data_module.dataset_name}}/\
+          ${resolve_dir_name:${task_module._target_}}/\
+          ${task_module.torch_model_builder.model_name}/\
+          ${experiment_name}/"
+          # ${now:%Y-%m-%d}/${now:%H-%M-%S}"
+  output_subdir: hydra
+  job:
+    chdir: false

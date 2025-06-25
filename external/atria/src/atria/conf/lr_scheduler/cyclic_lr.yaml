@@ -1,0 +1,13 @@
+_target_: torch.optim.lr_scheduler.CyclicLR
+_partial_: true
+step_size_up: 2000
+step_size_down: null
+mode: triangular
+gamma: 1.0
+scale_fn: null
+scale_mode: cycle
+cycle_momentum: true
+base_momentum: 0.8
+max_momentum: 0.9
+last_epoch: -1
+verbose: deprecated

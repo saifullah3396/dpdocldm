@@ -1,0 +1,4 @@
+_target_: atria.data.data_transforms.huggingface_processors.AnswerWordIndicesToAnswerTokenIndices
+answer_start_indices_key: answer_start_indices
+answer_end_indices_key: answer_end_indices
+remove_no_answer_samples: false

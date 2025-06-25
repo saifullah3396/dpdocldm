@@ -1,0 +1,4 @@
+_target_: atria.data.data_transforms.geometric.RescaleBoundingBoxes
+bbox_key: word_bboxes
+rescale_constant: 1000.0
+key: null

@@ -1,0 +1,4 @@
+_target_: atria.core.schedulers.lambda_lr.lambda_lr
+_partial_: true
+lambda_fn: linear
+last_epoch: -1

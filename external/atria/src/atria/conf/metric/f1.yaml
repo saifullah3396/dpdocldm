@@ -1,0 +1,6 @@
+_target_: atria.core.metrics.classification.f1_score.f1_score
+_partial_: true
+output_transform:
+  path: atria.core.metrics.classification.output_transforms._classification_metrics_output_transform
+  _target_: hydra_zen.funcs.get_obj
+device: cpu

@@ -1,0 +1,29 @@
+# @package __global__
+_target_: hydra_zen.funcs.zen_processing
+_zen_target: atria.core.task_runners._atria_trainer.AtriaTrainer
+_zen_exclude:
+- hydra
+- test_run
+- experiment_name
+- image_size
+- preprocess_image_size
+- dir_name_filter
+- objective
+- noise_schedule
+- snr_gamma
+- train_batch_size
+- eval_batch_size
+- gray_to_rgb
+- backend
+- n_devices
+- noise_multiplicity
+- model_checkpoint
+- max_physical_batch_size
+- features_key
+- vae_checkpoint
+defaults:
+- dp_latent_diffusion/train_base@_here_
+- override /data_module@data_module: ${oc.env:TASK}/${oc.env:DATASET}/override_custom_only_features
+- _self_
+
+features_key: ???

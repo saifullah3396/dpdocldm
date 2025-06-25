@@ -1,0 +1,8 @@
+_target_: dp_diffusion.transforms.hocr_to_layout_mask.HocrToLayoutMask
+hocr_key: hocr
+image_key: image
+layout_key: layout_mask
+use_filtered_image_mask: false
+segmentation_level: line
+threshold_value: 0.0
+is_stored_as_bytes: true

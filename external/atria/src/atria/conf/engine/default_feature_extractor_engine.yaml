@@ -1,0 +1,7 @@
+_target_: atria.core.training.engines.evaluation.FeatureExtractorEngine
+_partial_: true
+defaults:
+- _self_
+- /engine_step@engine_step: default_feature_extractor_step
+test_run: false
+max_shard_size: 100000

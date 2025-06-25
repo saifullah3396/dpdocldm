@@ -1,0 +1,6 @@
+defaults:
+- sbv1.4_uncond@_here_
+- _self_
+
+# THIS IS NAMED CFG BUT ITS ACTUALLY CLASS_CONDITIONAL
+enable_class_conditioning: True

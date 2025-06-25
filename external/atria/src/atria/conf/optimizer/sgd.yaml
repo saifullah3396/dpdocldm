@@ -1,0 +1,11 @@
+_target_: torch.optim.sgd.SGD
+_partial_: true
+lr: 0.001
+momentum: 0
+dampening: 0
+weight_decay: 0
+nesterov: false
+maximize: false
+foreach: null
+differentiable: false
+fused: null

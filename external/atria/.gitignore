@@ -1,0 +1,12 @@
+**/**.pyc
+**/**.pth
+**/**notebook.log
+cache/
+output/
+build/*
+atria.egg-info/dependency_links.txt
+atria.egg-info/entry_points.txt
+atria.egg-info/PKG-INFO
+atria.egg-info/requires.txt
+atria.egg-info/SOURCES.txt
+atria.egg-info/top_level.txt

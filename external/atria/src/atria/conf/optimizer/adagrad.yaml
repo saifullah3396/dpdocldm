@@ -1,0 +1,10 @@
+_target_: torch.optim.adagrad.Adagrad
+_partial_: true
+lr: 0.01
+lr_decay: 0
+weight_decay: 0
+initial_accumulator_value: 0
+eps: 1.0e-10
+foreach: null
+maximize: false
+differentiable: false

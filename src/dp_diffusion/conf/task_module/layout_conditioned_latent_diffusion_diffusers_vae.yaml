@@ -1,0 +1,52 @@
+_target_: dp_diffusion.models.task_modules.layout_conditioned_latent_diffusion.LayoutConditionedLatentDiffusionModule
+_partial_: true
+defaults:
+- _self_
+- /torch_model_builder@torch_model_builder.reverse_diffusion_model: diffusers
+- /torch_model_builder@torch_model_builder.vae: diffusers
+checkpoint_configs: null
+dataset_metadata: null
+tb_logger: null
+input_key: image
+loss_type: l2
+enable_xformers_memory_efficient_attention: false
+gradient_checkpointing: false
+scheduler: diffusers.schedulers.scheduling_ddpm.DDPMScheduler
+objective: epsilon
+diffusion_steps: 1000
+inference_diffusion_steps: 200
+noise_schedule: linear
+snr_gamma: null
+clip_sample: false
+clip_sample_range: 1.0
+unnormalize_output: true
+noise_multiplicity: null
+weighted_timestep_sampling: false
+weighted_timestep_config:
+  distributions:
+  - low: 0
+    high: 200
+  - low: 200
+    high: 800
+  - low: 800
+    high: 1000
+  coefficients:
+  - 0.015
+  - 0.785
+  - 0.2
+reinit_keys_patterns: null
+schedule_sampler: uniform
+enable_class_conditioning: false
+use_fixed_class_labels: true
+use_cfg: false
+cond_drop_prob: 0.1
+guidance_scale: 1.0
+custom_generated_class_label: null
+use_batch_labels: true
+generate_dataset_on_test: false
+save_outputs_to_msgpack: true
+latent_input_key: latent_image
+compute_scale_factor: false
+use_precomputed_latents_if_available: false
+features_scale_factor: null
+layout_cond_input_key: layout_mask

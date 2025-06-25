@@ -1,0 +1,5 @@
+_target_: atria.data.data_transforms.blur.NumpyZoomBlur
+zoom_factor_start: ???
+zoom_factor_end: ???
+zoom_factor_step: ???
+key: null

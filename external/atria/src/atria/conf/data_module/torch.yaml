@@ -1,0 +1,33 @@
+_target_: atria.core.data.data_modules.torch_data_module.TorchDataModule
+defaults:
+- _self_
+- /dataset_cacher@dataset_cacher: msgpack
+- /dataloader_builder@train_dataloader_builder: torch
+- /dataloader_builder@evaluation_dataloader_builder: torch
+- /train_validation_splitter@train_validation_splitter: null
+dataset_name: ???
+dataset_config_name: default
+dataset_kwargs: null
+dataset_dir: null
+dataset_output_key_map: null
+tar_chunk_size: 1000
+dataset_cacher: null
+caching_enabled: true
+runtime_data_transforms:
+  _target_: atria.core.data.data_transforms.DataTransformsDict
+  train: null
+  evaluation: null
+batch_samplers:
+  _target_: atria.core.data.batch_samplers.BatchSamplersDict
+  train: null
+  evaluation: null
+train_validation_splitter: null
+max_train_samples: null
+max_val_samples: null
+max_test_samples: null
+train_dataloader_builder: null
+evaluation_dataloader_builder: null
+streaming_mode: false
+use_validation_set_for_test: false
+use_stratified_sampling: false
+subset_label: null

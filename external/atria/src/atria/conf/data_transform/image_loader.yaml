@@ -1,0 +1,4 @@
+_target_: atria.data.data_transforms.advanced.ImageLoader
+key: null
+image_file_path_key: image_file_path
+output_image_key: image

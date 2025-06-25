@@ -1,0 +1,14 @@
+defaults:
+# take the defaults from the atria/data_module/hugging_face
+- /data_module/huggingface@_here_
+- _self_
+
+dataset_name: docsets.document_kie.wild_receipts.WildReceipts
+dataset_config_name: corrected_reading_order
+dataset_kwargs:
+  apply_reading_order_correction: true
+caching_enabled: true
+train_dataloader_builder:
+  batch_size: 2
+evaluation_dataloader_builder:
+  batch_size: 2

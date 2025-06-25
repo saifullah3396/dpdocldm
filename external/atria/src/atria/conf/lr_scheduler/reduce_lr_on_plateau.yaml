@@ -1,0 +1,5 @@
+_target_: ignite.handlers.param_scheduler.ReduceLROnPlateauScheduler
+_partial_: true
+trainer: null
+save_history: false
+param_group_index: null

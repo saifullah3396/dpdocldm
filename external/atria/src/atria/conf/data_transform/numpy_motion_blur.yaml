@@ -1,0 +1,3 @@
+_target_: atria.data.data_transforms.blur.NumpyMotionBlur
+size: ???
+key: null

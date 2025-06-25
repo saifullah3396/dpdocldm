@@ -1,0 +1,18 @@
+_target_: atria.data.data_transforms.advanced.BinarizationAug
+key: null
+image_key: image
+gt_image_key: gt_image
+gray_to_rgb: false
+rgb_to_gray: false
+normalize: true
+random_hflip: false
+random_vflip: false
+mean:
+- 0.5
+- 0.5
+- 0.5
+std:
+- 0.5
+- 0.5
+- 0.5
+image_size: 256

@@ -1,0 +1,32 @@
+defaults:
+- layout_conditioned_latent_diffusion_diffusers_vae@_here_
+- _self_
+
+loss_type: l2
+enable_xformers_memory_efficient_attention: true
+gradient_checkpointing: true
+objective: ${objective}
+diffusion_steps: 1000
+inference_diffusion_steps: 200
+scheduler: diffusers.schedulers.scheduling_ddpm.DDPMScheduler
+# scheduler: diffusers.schedulers.scheduling_ddim.DDIMScheduler
+noise_schedule: ${noise_schedule}
+snr_gamma: ${snr_gamma}
+clip_sample: false
+clip_sample_range: 1.0
+unnormalize_output: true
+# class conditioning args
+enable_class_conditioning: False
+use_fixed_class_labels: True
+use_cfg: False
+cond_drop_prob: 0.1
+guidance_scale: 1.0
+custom_generated_class_label: null
+use_precomputed_latents_if_available: True
+compute_scale_factor: True
+torch_model_builder:
+  vae:
+    model_name: AutoencoderKL
+    model_config_name_or_path: CompVis/stable-diffusion-v1-4
+    pretrained: true
+    is_frozen: true

@@ -1,0 +1,14 @@
+_target_: torch.optim.adamw.AdamW
+_partial_: true
+lr: 0.001
+betas:
+- 0.9
+- 0.999
+eps: 1.0e-08
+weight_decay: 0.01
+amsgrad: false
+maximize: false
+foreach: null
+capturable: false
+differentiable: false
+fused: null

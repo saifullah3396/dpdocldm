@@ -1,0 +1,17 @@
+[project]
+name = "dp-doc-ldm"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "atria",
+    "docsets",
+    "opacus",
+    "setuptools>=80.9.0",
+]
+
+[tool.uv.sources]
+atria = { path = "external/atria" }
+opacus = { path = "external/opacus_dpdm" }
+docsets = { path = "external/docsets" }

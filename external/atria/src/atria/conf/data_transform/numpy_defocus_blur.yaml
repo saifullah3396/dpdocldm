@@ -1,0 +1,4 @@
+_target_: atria.data.data_transforms.blur.NumpyDefocusBlur
+radius: ???
+alias_blur: 0.1
+key: null

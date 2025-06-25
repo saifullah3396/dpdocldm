@@ -1,0 +1,6 @@
+_target_: atria.data.data_transforms.geometric.NumpyElastic
+alpha: 70.0
+sigma: 500.0
+alpha_affine: 10.0
+random_state: null
+key: null

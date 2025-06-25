@@ -1,0 +1,4 @@
+_target_: atria.data.batch_samplers.group_batch_sampler.GroupBatchSampler
+sampler: ???
+batch_size: ???
+drop_last: ???

@@ -1,0 +1,6 @@
+_target_: atria.core.metrics.generative.fid_score.default_fid_score
+_partial_: true
+output_transform:
+  path: atria.core.metrics.generative.output_transforms._fid_output_transform
+  _target_: hydra_zen.funcs.get_obj
+use_reconstruction: false

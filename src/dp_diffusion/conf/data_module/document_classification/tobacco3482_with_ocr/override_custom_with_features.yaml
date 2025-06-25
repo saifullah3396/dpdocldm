@@ -1,0 +1,86 @@
+defaults:
+- document_classification/tobacco3482@_here_
+- /data_transform@dataset_cacher.preprocess_data_transforms.train: image_preprocess
+- /data_transform@dataset_cacher.preprocess_data_transforms.evaluation: image_preprocess
+- /data_transform@runtime_data_transforms.train.basic_image_aug: basic_image_aug
+- /data_transform@runtime_data_transforms.evaluation.basic_image_aug: basic_image_aug
+- /data_transform@runtime_data_transforms.train.hocr_to_layout_mask: hocr_to_layout_mask
+- /data_transform@runtime_data_transforms.evaluation.hocr_to_layout_mask: hocr_to_layout_mask
+- _self_
+
+dataset_dir: ${oc.env:DATASET_ROOT_DIR}/tobacco3482
+dataset_config_name: images_with_ocr
+train_dataloader_builder:
+  num_workers: 0
+  batch_size: ${train_batch_size}
+  collate_fn:
+    batch_filter_key_map:
+      image: image # our model expects image
+      latent_image: latent_image
+      label: label # our model expects label
+      layout_mask: layout_mask
+      __key__: __key__
+evaluation_dataloader_builder:
+  num_workers: 0
+  batch_size: ${eval_batch_size}
+  collate_fn:
+    batch_filter_key_map:
+      image: image # our model expects image
+      latent_image: latent_image
+      label: label # our model expects label
+      layout_mask: layout_mask
+      __key__: __key__
+dataset_cacher:
+  cache_dir: ${data_module.dataset_dir}/.atria/
+  num_processes: 8
+  attach_features_with_key: ${features_key}
+  cache_file_name: ${image_size}x${image_size}
+  preprocess_data_transforms:
+    train:
+      rescale_size:
+        - ${image_size}
+        - ${image_size}
+    evaluation:
+      rescale_size:
+        - ${image_size}
+        - ${image_size}
+runtime_data_transforms:
+  train:
+    basic_image_aug:
+      key: image
+      gray_to_rgb: ${gray_to_rgb}
+      normalize: true
+      mean:
+        - 0.5
+      std:
+        - 0.5
+      resize:
+        size:
+          - ${image_size}
+          - ${image_size}
+    hocr_to_layout_mask:
+      hocr_key: hocr
+      image_key: image
+      layout_key: layout_mask
+      use_filtered_image_mask: False
+      segmentation_level: line
+  evaluation:
+    basic_image_aug:
+      key: image
+      gray_to_rgb: ${gray_to_rgb}
+      normalize: true
+      mean:
+        - 0.5
+      std:
+        - 0.5
+      resize:
+        size:
+          - ${image_size}
+          - ${image_size}
+    hocr_to_layout_mask:
+      hocr_key: hocr
+      image_key: image
+      layout_key: layout_mask
+      use_filtered_image_mask: False
+      segmentation_level: line
+use_train_set_for_test: True

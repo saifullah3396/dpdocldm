@@ -1,0 +1,39 @@
+sample_size: null
+in_channels: 3
+out_channels: 3
+center_input_sample: false
+time_embedding_type: positional
+time_embedding_dim: null
+freq_shift: 0
+flip_sin_to_cos: true
+down_block_types:
+- DownBlock2D
+- AttnDownBlock2D
+- AttnDownBlock2D
+- AttnDownBlock2D
+up_block_types:
+- AttnUpBlock2D
+- AttnUpBlock2D
+- AttnUpBlock2D
+- UpBlock2D
+block_out_channels:
+- 224
+- 448
+- 672
+- 896
+layers_per_block: 2
+mid_block_scale_factor: 1.0
+downsample_padding: 1
+downsample_type: conv
+upsample_type: conv
+dropout: 0.0
+act_fn: silu
+attention_head_dim: 8
+norm_num_groups: 32
+attn_norm_num_groups: null
+norm_eps: 1.0e-05
+resnet_time_scale_shift: default
+add_attention: true
+class_embed_type: null
+num_class_embeds: null
+num_train_timesteps: null

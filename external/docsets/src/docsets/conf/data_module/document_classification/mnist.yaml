@@ -1,0 +1,10 @@
+defaults:
+# take the defaults from the atria/data_module/hugging_face
+- /data_module/huggingface@_here_
+- _self_
+
+dataset_name: ylecun/mnist
+dataset_config_name: mnist
+dataset_output_key_map:
+  image: image
+  label: label

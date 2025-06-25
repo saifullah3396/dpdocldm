@@ -1,0 +1,4 @@
+_target_: torch.optim.lr_scheduler.ExponentialLR
+_partial_: true
+last_epoch: -1
+verbose: deprecated

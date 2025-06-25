@@ -1,0 +1,49 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/**__pycache__": true,
+        "atria.egg-info": true,
+    },
+    "python.analysis.indexing": true,
+    "python.analysis.autoImportCompletions": true,
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": "\\.py$",
+                "isAsync": true,
+                // Use the full path from above in case it can't find it
+                "cmd": "autoflake --in-place --remove-all-unused-imports \"${file}\""
+            },
+        ]
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+            "source.fixAll": "explicit"
+        },
+        "editor.trimAutoWhitespace": true,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+        "files.trimTrailingWhitespace": true,
+        "editor.rulers": [
+            120
+        ],
+    },
+    "github.copilot.editor.enableCodeActions": false,
+    "workbench.colorCustomizations": {
+        // will change the color of three dots to red
+        "editorHint.foreground": "#ff0000",
+        // will underline the entire word with dots in your chosen color
+        "editorHint.border": "#00ff66"
+    },
+    "python.analysis.extraPaths": [
+        // "./external/paths"
+    ],
+    "notebook.output.textLineLimit": 200,
+    "notebook.output.scrolling": false
+}

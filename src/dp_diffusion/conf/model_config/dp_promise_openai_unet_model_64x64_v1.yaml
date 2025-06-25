@@ -1,0 +1,20 @@
+image_size: 64
+in_channels: 3
+model_channels: 128
+out_channels: 3
+num_res_blocks: 2
+attention_resolutions:
+- 4
+dropout: 0.0
+channel_mult:
+- 1
+- 2
+- 2
+- 2
+conv_resample: true
+dims: 2
+num_classes: null
+use_checkpoint: false
+num_heads: 1
+num_heads_upsample: -1
+use_scale_shift_norm: false

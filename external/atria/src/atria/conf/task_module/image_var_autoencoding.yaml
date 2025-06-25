@@ -1,0 +1,12 @@
+_target_: atria.models.task_modules.var_autoencoding.image.ImageVarAutoEncodingModule
+_partial_: true
+defaults:
+- _self_
+- /torch_model_builder@torch_model_builder: diffusers
+checkpoint_configs: null
+dataset_metadata: null
+tb_logger: null
+input_key: image
+loss_type: l2
+rec_loss_weight: 1.0
+kl_loss_weight: 1.0

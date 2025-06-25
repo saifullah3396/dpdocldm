@@ -1,0 +1,2 @@
+_target_: atria.core.data.data_collators.BatchToTensorDataCollator
+batch_filter_key_map: null

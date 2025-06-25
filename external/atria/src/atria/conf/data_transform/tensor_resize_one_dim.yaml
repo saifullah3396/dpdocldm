@@ -1,0 +1,6 @@
+_target_: atria.data.data_transforms.geometric.TensorResizeOneDim
+resize_dim: 224
+resize_smaller_dim: false
+interpolation: bicubic
+antialias: false
+key: null

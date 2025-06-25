@@ -1,0 +1,10 @@
+_target_: atria.core.data.data_modules.utilities.auto_dataloader
+_partial_: true
+defaults:
+- _self_
+- /data_collator@collate_fn: batch_to_tensor
+batch_size: 64
+num_workers: 4
+pin_memory: true
+drop_last: false
+collate_fn: null

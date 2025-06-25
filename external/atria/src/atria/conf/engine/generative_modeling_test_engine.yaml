@@ -1,0 +1,22 @@
+_target_: atria.core.training.engines.evaluation.TestEngine
+_partial_: true
+defaults:
+- _self_
+- /engine_step@engine_step: default_test_step
+- /metric@metrics.fid_score: fid_score
+tb_logger: null
+epoch_length: null
+outputs_to_running_avg: null
+logging:
+  _target_: atria.core.training.configs.logging_config.LoggingConfig
+  logging_steps: 100
+  refresh_rate: 10
+  log_gpu_stats: false
+  profile_time: false
+  log_to_tb: true
+metrics: null
+metric_logging_prefix: null
+test_run: false
+use_fixed_batch_iterator: false
+test_checkpoint_file: null
+save_model_forward_outputs: false

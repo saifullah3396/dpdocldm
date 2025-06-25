@@ -1,0 +1,7 @@
+_target_: atria.data.data_transforms.huggingface_processors.QuestionAnsweringHuggingfaceProcessor
+model_name: ???
+init_kwargs: null
+call_kwargs: null
+overflow_sampling: return_all
+max_overflow_samples: 10
+processor_input_key_map: null

@@ -1,0 +1,4 @@
+_target_: atria.core.data.train_validation_splitter.DefaultTrainValidationSplitter
+seed: 42
+split_ratio: 0.8
+shuffle: true

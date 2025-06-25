@@ -1,0 +1,4 @@
+_target_: atria.core.schedulers.polynomial_decay_lr.PolynomialDecayLR
+_partial_: true
+end_learning_rate: 0.0001
+power: 1.0

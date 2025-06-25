@@ -1,0 +1,8 @@
+_target_: atria.data.data_transforms.geometric.TensorResizeWithAspectAndPad
+target_dims:
+- 64
+- 256
+interpolation: bicubic
+antialias: false
+pad_value: 255
+key: null

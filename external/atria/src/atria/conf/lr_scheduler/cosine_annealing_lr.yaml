@@ -1,0 +1,5 @@
+_target_: atria.core.schedulers.cosine_annealing_lr.cosine_annealing_lr
+_partial_: true
+restarts: false
+eta_min: 0
+last_epoch: -1

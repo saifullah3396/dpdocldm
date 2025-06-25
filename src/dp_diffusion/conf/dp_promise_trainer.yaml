@@ -1,0 +1,43 @@
+# @package __global__
+_target_: hydra_zen.funcs.zen_processing
+_zen_target: dp_diffusion.task_runners._dp_promise_trainer.DPPromiseTrainer
+_zen_exclude:
+- hydra
+defaults:
+- _self_
+- /data_module@data_module: huggingface
+- /task_module@task_module: diffusion
+- /engine@non_private_training_engine: default_training_engine
+- /engine@private_training_engine: dp_promise_training_engine
+- /engine@validation_engine: default_validation_engine
+- /engine@visualization_engine: default_visualization_engine
+- /engine@test_engine: default_test_engine
+- /optimizer@non_private_training_engine.optimizers: adam
+- /lr_scheduler@non_private_training_engine.lr_schedulers: cosine_annealing_lr
+- /optimizer@private_training_engine.optimizers: adam
+- /lr_scheduler@private_training_engine.lr_schedulers: null
+data_module: ???
+task_module: ???
+non_private_training_engine: ???
+private_training_engine: ???
+validation_engine: ???
+visualization_engine: ???
+test_engine: ???
+output_dir: ???
+feature_extractor_engine: null
+seed: 42
+deterministic: false
+do_train: true
+do_validation: true
+do_visualization: false
+do_test: true
+feature_extraction_batch_size: 64
+vis_batch_size: 64
+non_private_batch_size: 64
+private_batch_size: 64
+hydra:
+  run:
+    dir: ${output_dir}/dp_promise_trainer/${resolve_dir_name:${data_module.dataset_name}}/${resolve_dir_name:${task_module._target_}}/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  output_subdir: hydra
+  job:
+    chdir: false

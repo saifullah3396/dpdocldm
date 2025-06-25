@@ -1,0 +1,10 @@
+_target_: atria.data.data_transforms.geometric.TensorRandomResizedCrop
+size: null
+scale:
+- 0.08
+- 1.0
+ratio:
+- 0.75
+- 1.3333333333333333
+interpolation: bicubic
+key: null

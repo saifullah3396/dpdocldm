@@ -1,0 +1,4 @@
+_target_: atria.data.data_transforms.geometric.NumpyScale
+scale: ???
+fill: 1.0
+key: null

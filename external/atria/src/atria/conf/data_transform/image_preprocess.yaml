@@ -1,0 +1,7 @@
+_target_: atria.data.data_transforms.advanced.ImagePreprocess
+key: image
+square_pad: false
+rescale_size: null
+encode_image: false
+encode_format: PNG
+decode_image_if_needed: true

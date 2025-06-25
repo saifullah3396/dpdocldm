@@ -1,0 +1,12 @@
+_target_: atria.models.task_modules.classification.layout_token.LayoutTokenClassificationModule
+_partial_: true
+defaults:
+- _self_
+- /torch_model_builder@torch_model_builder: transformers
+checkpoint: null
+load_checkpoint_strict: false
+dataset_metadata: null
+tb_logger: null
+use_bbox: true
+use_image: true
+input_stride: 0

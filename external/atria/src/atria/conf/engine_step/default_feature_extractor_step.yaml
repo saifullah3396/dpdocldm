@@ -1,0 +1,5 @@
+_target_: atria.core.training.engines.engine_steps.evaluation.FeatureExtractorStep
+_partial_: true
+non_blocking_tensor_conv: false
+with_amp: false
+test_run: false

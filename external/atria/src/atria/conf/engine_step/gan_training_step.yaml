@@ -1,0 +1,9 @@
+_target_: atria.core.training.engines.engine_steps.training.GANTrainingStep
+_partial_: true
+grad_scaler: null
+output_transform:
+  path: atria.core.training.engines.utilities._detach_tensor
+  _target_: hydra_zen.funcs.get_obj
+non_blocking_tensor_conv: false
+with_amp: false
+test_run: false

@@ -1,0 +1,2 @@
+_target_: atria.data.data_transforms.cifar10_toy_aug.Cifar10ToyAug
+key: null

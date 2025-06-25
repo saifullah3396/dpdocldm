@@ -1,0 +1,5 @@
+_target_: atria.data.data_transforms.geometric.TensorRandomResize
+resize_dims: null
+max_larger_dim: 512
+max_iters: 100
+key: null

@@ -1,0 +1,12 @@
+_target_: atria.data.data_transforms.geometric.NumpyRandomChoiceAffine
+degrees:
+- 0.0
+- 0.0
+translate:
+- 0.0
+- 0.0
+shear:
+- 0.0
+- 0.0
+fill: 1.0
+key: null

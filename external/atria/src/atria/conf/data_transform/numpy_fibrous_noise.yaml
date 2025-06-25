@@ -1,0 +1,4 @@
+_target_: atria.data.data_transforms.noise.NumpyFibrousNoise
+blur: 1.0
+blotches: 5.0e-05
+key: null

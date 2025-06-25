@@ -1,0 +1,2 @@
+_target_: atria.data.data_transforms.general.TensorGrayToRgb
+key: null
